@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import bancoVero.app.exception.ExceptApp;
 import bancoVero.app.model.BankAccount;
 import bancoVero.app.model.User;
+import bancoVero.app.repository.BankAccountRepository;
 import bancoVero.app.repository.UserRepository;
 
 
@@ -20,6 +21,9 @@ public class MenuService {
 	@Autowired
 	BankAccount bankAccount;
 	
+	@Autowired
+	User user;
+	
 	UserService userService = new UserService();
 	
 	BankAccountService bankAccountService = new BankAccountService();
@@ -27,24 +31,27 @@ public class MenuService {
 	DebitCardService debitCardService = new DebitCardService();
 	
 	UserRepository userRepository;
+	
+	BankAccountRepository bankAccountRepository;
 
-	@Autowired
-	User user;
+//	Metodo constructor del menu por consola
 
 	public MenuService(ApplicationContext context) {
 		super();
 		this.context = context;
-		userRepository = context.getBean(UserRepository.class);
+		this.userRepository = context.getBean(UserRepository.class);
+		this.bankAccountRepository = context.getBean(BankAccountRepository.class);
 	}
 
-	//	List<User> customers = inicialiarDatos();
+	List<User> customers = new ArrayList<User>();
 	Scanner sc = new Scanner(System.in);
 //    List<String> dataUsuarios = userService.showUser(customers);
 
 	public void menuPrincipal() {
         boolean band;
-//        List<String> dataUsuarios = userService.showUser(customers);
-//        System.out.println(dataUsuarios);
+        customers = userRepository.findAll();
+        List<String> dataUsuarios = userService.showUser(customers);
+        System.out.println(dataUsuarios.toString());
         do {
             try {
                 band = false;
@@ -64,11 +71,21 @@ public class MenuService {
                     case 1:
                             System.out.println(" Complete el formulario de registro : ");
                             user = userService.createUser();
+                            for (User customer: customers) {
+                            	if (customer.getDni().equals(user.getDni())){
+                            		throw new ExceptApp("Existe un usuario con el dni, no puede volver a registrarse, ingrese por login");
+                            		
+                            	}
+                            }
+                            
                             userRepository.save(user);
-//                            customers.add(user);
-                            user.getAccounts().add(new BankAccount(user));
-                            System.out.println("Su numero de cuenta es : " + user.getAccounts().get(0).getCbu());
-                            System.out.println("El balance de su cuenta es : " + user.getAccounts().get(0).getBalance());
+                    		bankAccount = new BankAccount(user);
+                    		bankAccountRepository.save(bankAccount);
+                            
+//                    		bankAccountRepository.findByIdUser(user.getId());
+                    		
+                            System.out.println("Su numero de cuenta es : " + bankAccount.getCbu());
+                            System.out.println("El balance de su cuenta es : " + bankAccount.getBalance());
                             do {
                                 menuBankAccount(user);
                             }
@@ -81,6 +98,7 @@ public class MenuService {
                     case 2:
                         System.out.println("Bienvenido a la app, complete su usuario y clave");
 //                        user = bankAccountService.loginBankAccount(customers);
+                        
                         do {
                             menuBankAccount(user);
                         }
@@ -186,6 +204,10 @@ public class MenuService {
         return numValitor;
 
 	}
+	
+//	public void guardarUsuario(User user) {
+//		for ()
+//	}
 
 	public List<User> inicialiarDatos() {
 		

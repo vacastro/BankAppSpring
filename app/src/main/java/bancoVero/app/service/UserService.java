@@ -185,11 +185,11 @@ public class UserService {
 			dataUsuarios.add("Email: " + user.getEmail());
 			dataUsuarios.add("Dni:  " + user.getDni());
 			dataUsuarios.add("Age: " + user.getAge() );
-			for (BankAccount cuenta : user.getAccounts()) {
-				dataUsuarios.add("CBU: " +cuenta.getCbu());
-				dataUsuarios.add("Saldo:" +cuenta.getBalance());
-			}
-			
+//			for (BankAccount cuenta : user.getAccounts()) {
+//				dataUsuarios.add("CBU: " +cuenta.getCbu());
+//				dataUsuarios.add("Saldo:" +cuenta.getBalance());
+//			}
+//			
 			dataUsuarios.add("\n");
 		}
 		

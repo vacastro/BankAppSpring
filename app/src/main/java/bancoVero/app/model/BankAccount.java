@@ -16,40 +16,34 @@ import lombok.Setter;
 public class BankAccount {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column (name="id_cuenta")
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column (name="cbu")
+	private int cbu;
 	
 	@Column(name="balance")
 	private double balance;
-	
-	@Column(name="cbu")
-    private int cbu;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_usuario", nullable = false, updatable = false)
     private User user;
 	
-	@OneToOne
-	@JoinColumn(name = "id_tarjeta_debito", updatable = false, nullable = false)
-	private DebitCard debit;
+//	@OneToOne
+//	@JoinColumn(name = "id_tarjeta_debito", updatable = false, nullable = false)
+//	private DebitCard debit;
     
-    private static int cbuNumber = 1000;
     
     public BankAccount(User user) {
         this.user = user;
         this.balance = 0.0;
-        cbu = cbuNumber;
-        cbuNumber++;
     }
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+//	public int getId() {
+//		return id;
+//	}
+//
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 
 	public double getBalance() {
 		return balance;
@@ -75,35 +69,35 @@ public class BankAccount {
 		this.user = user;
 	}
 
-	public DebitCard getDebit() {
-		return debit;
-	}
+//	public DebitCard getDebit() {
+//		return debit;
+//	}
+//
+//	public void setDebit(DebitCard debit) {
+//		this.debit = debit;
+//	}
 
-	public void setDebit(DebitCard debit) {
-		this.debit = debit;
-	}
-
-	public static int getCbuNumber() {
-		return cbuNumber;
-	}
-
-	public static void setCbuNumber(int cbuNumber) {
-		BankAccount.cbuNumber = cbuNumber;
-	}
+//	public static int getCbuNumber() {
+//		return cbuNumber;
+//	}
+//
+//	public static void setCbuNumber(int cbuNumber) {
+//		BankAccount.cbuNumber = cbuNumber;
+//	}
 
 	public BankAccount() {
 		super();
 	}
 
-	public BankAccount(int id, double balance, int cbu, User user, DebitCard debit) {
-		super();
-		this.id = id;
-		this.balance = balance;
-		this.cbu = cbu;
-		this.user = user;
-		this.debit = debit;
-	}
-    
+//	public BankAccount(int id, double balance, int cbu, User user, DebitCard debit) {
+//		super();
+//		this.id = id;
+//		this.balance = balance;
+//		this.cbu = cbu;
+//		this.user = user;
+////		this.debit = debit;
+//	}
+//    
     
 
 }

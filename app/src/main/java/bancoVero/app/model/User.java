@@ -53,8 +53,8 @@ public class User implements Serializable {
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "user")
 	private List<BankAccount> accounts = new ArrayList<BankAccount>();
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")	
-	private List<DebitCard> cards = new ArrayList<DebitCard>();
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")	
+//	private List<DebitCard> cards = new ArrayList<DebitCard>();
 	
 	
 	public User(String name, String lastName, String email, Integer dni, int age, String username, String password) {
@@ -167,15 +167,25 @@ public class User implements Serializable {
 		this.password = password;
 		this.accounts = accounts;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", dni=" + dni
-				+ ", age=" + age + ", username=" + username + ", password=" + password + ", accounts=" + accounts
-				+ ", cards=" + cards + "]";
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
+	
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", dni=" + dni
+//				+ ", age=" + age + ", username=" + username + ", password=" + password + ", accounts=" + accounts
+//				+ ", cards=" + cards + "]";
+//	}
+//	
 	
 
 

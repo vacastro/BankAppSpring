@@ -7,5 +7,6 @@ import bancoVero.app.model.BankAccount;
 
 @Repository
 public interface BankAccountRepository extends JpaRepository<BankAccount, Integer> {
+	
 
 }
