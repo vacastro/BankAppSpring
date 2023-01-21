@@ -234,7 +234,7 @@ public class MenuService {
 		user2.getAccounts().add(new BankAccount(user2));
 		user3.getAccounts().add(new BankAccount(user3));
 		user4.getAccounts().add(new BankAccount(user4));
-		userService.guardarUser(user1);
+//		userService.guardarUser(user1);
 		
 
 

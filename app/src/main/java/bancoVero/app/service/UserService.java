@@ -245,7 +245,7 @@ public class UserService {
 
     }*/
 	
-	public User getUser (String id) {
+	public User getUser (int id) {
 		Optional <User> datosUser = userRepository.getUserById(id);
 		if (datosUser.isPresent()) {
 			user = datosUser.get();
@@ -253,8 +253,57 @@ public class UserService {
 		return user;
 	}
 	
-	public void guardarUser (User user) {
+	public User crearUsuario (User user) {
+		
+		if (user.getName().trim().equals("")) {
+			throw new ExceptValidationUser("Name can not be empty, try again");
+		} else if (verifyString(user.getName())) {
+			throw new ExceptValidationUser("no puede ingresar caracteres numericos");
+		}else {
+			user.setName(user.getName().trim().toLowerCase());
+		}
+		
+		if (user.getLastName().trim().equals("")) {
+			throw new ExceptValidationUser("LastName can not be empty");
+		} else if (verifyString(user.getLastName())) {
+			throw new ExceptValidationUser("no puede ingresar caracteres numericos");
+		}else {
+			user.setLastName(user.getLastName().trim().toLowerCase());
+		}
+
+		if (user.getEmail().trim().equals("")) {
+			throw new ExceptValidationUser("Email canÂ´t be empty");
+		} else if (!user.getEmail().contains("@") || !user.getEmail().contains(".com")) {
+			throw new ExceptValidationUser("el email debe contener @ y .com");
+		} else {
+			user.setEmail(user.getEmail().trim().toLowerCase());
+		}
+		
+		if (user.getDni() == null) {
+			throw new ExceptValidationUser("Dni canÂ´t be empty");
+		} else if (Integer.toString(user.getDni()).length() != 8) {
+			throw new ExceptValidationUser("El dni deben ser 8 caracteres");
+		}
+
+		if (user.getAge() < 18) {
+			throw new ExceptValidationUser("Debe ser mayor a 18 para ser usuario de la app");
+		}
+
+		
+		if (user.getUsername().trim().equals("")) {
+			throw new ExceptValidationUser("Username canÂ´t be empty");
+		} else if (userRepository.findByUsername(user.getUsername().trim().toLowerCase()).equals(user.getUsername().trim().toLowerCase())) {
+			throw new ExceptValidationUser("The username is already exist, try again");
+		}else {
+			user.setUsername(user.getUsername().trim().toLowerCase());
+		}
+
+		if (user.getPassword().trim().equals("")) {
+			throw new ExceptValidationUser("Password canÂ´t be empty");
+		}
+		
 		userRepository.save(user);
+		return user;
 	}
 
 

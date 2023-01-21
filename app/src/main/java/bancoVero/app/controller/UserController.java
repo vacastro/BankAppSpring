@@ -23,7 +23,7 @@ public class UserController {
 	UserService userService;
 	
 	@GetMapping(value="/BANK-APP/getUser/{id}")
-	public User getUser(@PathVariable("id")String id) throws Exception{
+	public User getUser(@PathVariable("id")int id) throws Exception{
 		return userService.getUser(id);
 		
 	}
@@ -31,7 +31,7 @@ public class UserController {
 	
 	@PostMapping (value = "/BANK-APP/registro")
 	public void nuevoUsuario (@RequestBody User user) throws Exception{
-		userService.guardarUser(user);
+		userService.crearUsuario(user);
 	}
 
 	

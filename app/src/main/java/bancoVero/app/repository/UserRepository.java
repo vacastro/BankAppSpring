@@ -12,6 +12,9 @@ import bancoVero.app.model.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
 	@Query("select u from User u where id =?1")
-	Optional<User> getUserById(String id);
+	Optional<User> getUserById(int id);
+
+	@Query("select u from User u where username =?1")
+	Optional <User> findByUsername (String username);
 
 }
